@@ -1,0 +1,56 @@
+[
+  {
+    "nome": "Drogarias Pacheco",
+    "dominio": "drogariaspacheco.com.br",
+    "base_url": "https://www.drogariaspacheco.com.br",
+    "ativo": true
+  },
+  {
+    "nome": "Drogaria São Paulo",
+    "dominio": "drogariasaopaulo.com.br",
+    "base_url": "https://www.drogariasaopaulo.com.br",
+    "ativo": true
+  },
+  {
+    "nome": "Droga Raia",
+    "dominio": "drogaraia.com.br",
+    "base_url": "https://www.drogaraia.com.br",
+    "ativo": true
+  },
+  {
+    "nome": "Panvel",
+    "dominio": "panvel.com",
+    "base_url": "https://www.panvel.com",
+    "ativo": true
+  },
+  {
+    "nome": "Drogal",
+    "dominio": "panvel.com.br",
+    "base_url": "https://www.drogal.com.br",
+    "ativo": true
+  },
+  {
+    "nome": "Drogasil",
+    "dominio": "drogasil.com.br",
+    "base_url": "https://www.drogasil.com.br",
+    "ativo": true
+  },
+  {
+    "nome": "PagMenos",
+    "dominio": "pagmenos.com.br",
+    "base_url": "https://www.paguemenos.com.br",
+    "ativo": true    
+  },
+  {
+    "nome": "Ultrafarma",
+    "dominio": "ultrafarma.com.br",
+    "base_url": "https://www.ultrafarma.com.br",
+    "ativo": true    
+  },
+  {
+    "nome": "FarmaciasNissei",
+    "dominio": "farmaciasnissei.com.br",
+    "base_url": "https://www.farmaciasnissei.com.br",
+    "ativo": true        
+  }  
+]
