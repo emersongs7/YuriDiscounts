@@ -32,6 +32,7 @@ class Settings:
     min_match_score: float = field(default_factory=lambda: float(os.getenv("MIN_MATCH_SCORE", "55")))
     export_dir: Path = field(default_factory=lambda: Path(os.getenv("EXPORT_DIR", str(DATA_DIR))))
     products_file: Path = field(default_factory=lambda: DATA_DIR / "products.json")
+    search_terms_file: Path = field(default_factory=lambda: DATA_DIR / "produtos_pesquisa.json")
     log_file: Path = field(default_factory=lambda: DATA_DIR / "search_log.txt")
     stores_file: Path = field(default_factory=lambda: CONFIG_DIR / "stores.json")
 
@@ -48,6 +49,23 @@ def load_stores_config() -> list[dict]:
         return []
     with open(settings.stores_file, "r", encoding="utf-8") as f:
         return json.load(f)
+
+
+def load_search_terms() -> list[str]:
+    """Le a lista de produtos a pesquisar a partir de data/produtos_pesquisa.json.
+
+    O arquivo deve conter uma lista simples de strings, por exemplo:
+        ["Dipirona 500mg", "Fralda Pampers Premium Care XXG"]
+    """
+    settings = get_settings()
+    if not settings.search_terms_file.exists():
+        return []
+    with open(settings.search_terms_file, "r", encoding="utf-8") as f:
+        conteudo = f.read().strip()
+        if not conteudo:
+            return []
+        termos = json.loads(conteudo)
+    return [t.strip() for t in termos if isinstance(t, str) and t.strip()]
 
 
 def configure_logging() -> logging.Logger:

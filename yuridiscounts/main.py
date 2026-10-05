@@ -4,7 +4,20 @@ from __future__ import annotations
 import argparse
 import sys
 
-from yuridiscounts.config.settings import configure_logging, get_settings, load_stores_config
+if __package__ in (None, ""):
+    # Permite executar este arquivo diretamente (ex.: "Debug Python File" do
+    # VSCode), adicionando a raiz do projeto ao sys.path para que o pacote
+    # "yuridiscounts" seja encontrado.
+    from pathlib import Path
+
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from yuridiscounts.config.settings import (
+    configure_logging,
+    get_settings,
+    load_search_terms,
+    load_stores_config,
+)
 from yuridiscounts.core.exceptions import RepositoryError, YuriDiscountsError
 from yuridiscounts.repositories.json_product_repository import JsonProductRepository
 from yuridiscounts.scrapers.factory import ScraperFactory
@@ -19,7 +32,7 @@ def build_parser() -> argparse.ArgumentParser:
     produto = sub.add_parser("produto", help="Gerenciar produtos monitorados")
     produto_sub = produto.add_subparsers(dest="acao", required=True)
 
-    p_add = produto_sub.add_parser("add", help="Adicionar um termo de busca")
+    p_add = produto_sub.add_parser("add", help="Produtos....")
     p_add.add_argument("--termo", required=True)
     p_add.add_argument("--categoria", default=None)
 
@@ -31,6 +44,11 @@ def build_parser() -> argparse.ArgumentParser:
     comparar = sub.add_parser("comparar", help="Comparar precos entre lojas")
     comparar.add_argument("--termo", help="Termo especifico a comparar")
     comparar.add_argument("--todos", action="store_true", help="Comparar todos os produtos cadastrados")
+    comparar.add_argument(
+        "--lista",
+        action="store_true",
+        help="Comparar todos os produtos definidos em data/produtos_pesquisa.json",
+    )
     comparar.add_argument("--mock", action="store_true", help="Forcar uso de dados simulados")
     comparar.add_argument("--export", choices=["json", "csv"], default=None)
 
@@ -71,10 +89,15 @@ def main(argv: list[str] | None = None) -> int:
                 if not termos:
                     print("Nenhum produto cadastrado para comparar.")
                     return 0
+            elif args.lista:
+                termos = load_search_terms()
+                if not termos:
+                    print(f"Nenhum produto encontrado em {settings.search_terms_file}.")
+                    return 0
             elif args.termo:
                 termos = [args.termo]
             else:
-                parser.error("Informe --termo ou --todos")
+                parser.error("Informe --termo, --todos ou --lista")
                 return 1
 
             resultados = service.comparar_varios(termos)

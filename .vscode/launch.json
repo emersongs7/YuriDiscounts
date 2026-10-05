@@ -1,0 +1,56 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "YuriDiscounts (módulo)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "yuridiscounts.main",
+            "args": ["comparar", "--lista"],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "python": "${workspaceFolder}/.venv/Scripts/python.exe"
+        },
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "args": ["comparar", "--lista"],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "python": "${workspaceFolder}/.venv/Scripts/python.exe"
+        },
+        {
+            "name": "YuriDiscounts - Comparar produto (pede input)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "yuridiscounts.main",
+            "args": ["comparar", "--termo", "${input:termoProduto}"],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "python": "${workspaceFolder}/.venv/Scripts/python.exe"
+        },
+        {
+            "name": "YuriDiscounts - Comparar lista (produtos_pesquisa.json)",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "yuridiscounts.main",
+            "args": ["comparar", "--lista"],
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "python": "${workspaceFolder}/.venv/Scripts/python.exe"
+        }
+    ],
+    "inputs": [
+        {
+            "id": "termoProduto",
+            "type": "promptString",
+            "description": "Digite o nome do produto a ser pesquisado/comparado"
+        }
+    ]
+}
